@@ -2,10 +2,18 @@
 
 use Illuminate\Support\Facades\Route;
 use Livewire\Volt\Volt;
+use App\Http\Controllers\CheckinController;
 
 Route::get('/', function () {
     return view('welcome');
 })->name('home');
+
+Route::middleware(['auth']) //if you want only logged-in staff to see it
+    ->get('/checkin', [CheckinController::class, 'index'])
+    ->name('checkin.index');
+
+Route::get('checkin/start', [CheckinController::class, 'start'])
+    ->name('checkin.start');
 
 Route::view('dashboard', 'dashboard')
     ->middleware(['auth', 'verified'])
