@@ -1,11 +1,8 @@
-<head>
-  <!-- … -->
-  @vite(['resources/css/app.css', 'resources/js/app.js'])
-  @livewireStyles
-</head>
-<body>
-  {{ $slot ?? '' }}
+{{-- resources/views/layouts/app.blade.php --}}
 
-  @livewireScripts
-</body>
-<!-- Add this to the end of your app.blade.php file -->
+<nav>
+  {{-- replace any of these… --}}
+  <a href="{{ route('home') }}">Home</a>
+  {{-- …with: --}}
+  <a href="{{ route('checkin') }}">Check‑In</a>
+</nav>

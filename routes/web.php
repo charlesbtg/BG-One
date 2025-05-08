@@ -6,8 +6,9 @@ use App\Http\Controllers\CheckinController;
 use App\Http\Livewire\CheckinWizard;
 
 Route::get('/', function () {
-    return view('welcome');
-})->name('home');
+    return view('checkin');
+})->name('checkin')
+  ->name('home');
 
 // Route::get('/checkin', CheckinWizard::class)
 //    ->name('checkin');
