@@ -35,4 +35,8 @@ return [
         ],
     ],
 
+    'repairshopr' => [
+        'url' => env('REPAIRSHOPR_URL'),
+        'key' => env('REPAIRSHOPR_KEY_GOES_HERE'),
+    ],
 ];
