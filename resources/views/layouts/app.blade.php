@@ -3,14 +3,14 @@
   <!-- ... -->
   @livewireStyles
 </head>
-<body>
-  <nav>
+<body class="bg-gray-100 text-gray-800">
+  <nav class="bg-gray-800 text-white p-4 flex justify-between">
     {{-- replace any of these… --}}
-    <a href="{{ route('home') }}">Home</a>
+    <a href="{{ route('home') }}" class="hover:underline">Home</a>
     {{-- …with: --}}
-    <a href="{{ route('checkin') }}">Check‑In</a>
+    <a href="{{ route('checkin') }}" class="hover:underline">Check‑In</a>
   </nav>
-  <main>
+  <main class="py-8">
     @yield('content')
   </main>
 
