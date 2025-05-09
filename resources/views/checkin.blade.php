@@ -2,5 +2,7 @@
 @extends('layouts.app')
 
 @section('content')
-  <livewire:checkin-wizard />
+  <div class="max-w-md mx-auto mt-8">
+    <livewire:checkin-wizard />
+  </div>
 @endsection
