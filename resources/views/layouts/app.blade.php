@@ -1,9 +1,12 @@
 {{-- resources/views/layouts/app.blade.php --}}
 <head>
   <!-- ... -->
+  <link rel="stylesheet"
+  href="https://cdn.jsdelivr.net/gh/codegear/Puppertino@latest/dist/css/newfull.css"
+  > {{-- :contentReference[oaicite:0]{index=0} --}}
   @livewireStyles
 </head>
-<body class="bg-gray-100 text-gray-800">
+<body class="p-layout bg-gray-100">
   <nav class="bg-gray-800 text-white p-4 flex justify-between">
     {{-- replace any of these… --}}
     <a href="{{ route('home') }}" class="hover:underline">Home</a>
@@ -15,4 +18,4 @@
   </main>
 
   @livewireScripts
-</body>
+</body> {{-- contentReference[oaicite:1]{index=1} --}}
