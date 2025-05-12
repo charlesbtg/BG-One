@@ -7,6 +7,8 @@ use Livewire\Component;
 use App\Services\RepairShoprService;
 class CheckinWizard extends Component
 {
+    public string $method ='email';
+    
     public ?int $customerId = null;
     public string $email = '';
     public string $phone = '';
