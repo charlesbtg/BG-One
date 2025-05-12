@@ -8,7 +8,6 @@ use App\Services\RepairShoprService;
 class CheckinWizard extends Component
 {
     public string $method = 'email';
-    
     public ?int $customerId = null;
     public string $email = '';
     public string $phone = '';
@@ -52,5 +51,10 @@ class CheckinWizard extends Component
 
         $this->customerId = $customer['id'];
         $this->step       = 'confirm';
+    }
+
+    public function render()
+    {
+        return view('livewire.checkin-wizard');
     }
 }

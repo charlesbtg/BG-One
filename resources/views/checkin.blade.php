@@ -2,7 +2,8 @@
 @extends('layouts.app')
 
 @section('content')
-  <div class="max-w-md mx-auto p-6 bg-white shadown-lg rounded-lg">
+  <div class="max-w-md mx-auto my-8 p-6 bg-white shadow-lg rounded-lg p-layout">
+    {{-- Only render the Livewire component here: --}}
     <livewire:checkin-wizard />
   </div>
 @endsection
