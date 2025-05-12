@@ -10,7 +10,7 @@
     </div>
 
     <label class="p-form-label block mb-2">
-      @if($method === 'email')
+      @if($method == 'email')
         Email:
         <input
           type="email"
