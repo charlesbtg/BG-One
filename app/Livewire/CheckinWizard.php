@@ -18,6 +18,7 @@ class CheckinWizard extends Component
     public function mount(RepairShoprService $repairShopr)
     {
         $this->rs = $repairShopr;
+        $this->method = 'email';
     }
 
     public function lookupCustomer()

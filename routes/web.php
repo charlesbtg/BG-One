@@ -12,6 +12,8 @@ Route::redirect('/', '/checkin')
 Route::view('/checkin', 'checkin')
      ->name('checkin');
 
+Route::get('/checkin', fn() => view('checkin'));
+
 // 3. Staff-only check-in dashboard & actions
 Route::middleware(['auth'])->group(function () {
     // A staff dashboard of check-ins

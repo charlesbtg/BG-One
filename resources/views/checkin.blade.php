@@ -1,9 +1,14 @@
-{{-- resources/views/checkin.blade.php --}}
-@extends('layouts.app')
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  @livewireStyles
+</head>
+<body>
+  {{-- here you actually mount your component --}}
+  <livewire:checkin-wizard />
 
-@section('content')
-  <div class="max-w-md mx-auto my-8 p-6 bg-white shadow-lg rounded-lg p-layout">
-    {{-- Only render the Livewire component here: --}}
-    <livewire:checkin-wizard />
-  </div>
-@endsection
+  @livewireScripts
+</body>
+</html>
