@@ -1,4 +1,6 @@
 {{-- resources/views/layouts/app.blade.php --}}
+<!doctype html>
+<html lang="en">
 <head>
   <!-- ... -->
   <link rel="stylesheet"
@@ -19,3 +21,4 @@
 
   @livewireScripts
 </body> {{-- contentReference[oaicite:1]{index=1} --}}
+</html>

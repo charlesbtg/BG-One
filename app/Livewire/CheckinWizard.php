@@ -8,9 +8,9 @@ use App\Services\RepairShoprService;
 class CheckinWizard extends Component
 {
     public string $method = 'email';
-    public ?int $customerId = null;
     public string $email = '';
     public string $phone = '';
+    public ?int  $customerId = null;
     public string $step = 'lookup';
 
     protected RepairShoprService $rs;
@@ -19,6 +19,11 @@ class CheckinWizard extends Component
     {
         $this->rs = $repairShopr;
         $this->method = 'email';
+    }
+
+    public function render()
+    {
+        return view('livewire.checkin-wizard');
     }
 
     public function lookupCustomer()
@@ -52,10 +57,5 @@ class CheckinWizard extends Component
 
         $this->customerId = $customer['id'];
         $this->step       = 'confirm';
-    }
-
-    public function render()
-    {
-        return view('livewire.checkin-wizard');
     }
 }

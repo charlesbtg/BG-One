@@ -1,4 +1,4 @@
-{{-- resources/views/livewire/checkin-wizard.blade.php --}}
+@dd($method ?? 'method-undefined')
 <div class="max-w-md mx-auto my-8 p-6 bg-white shadow-lg rounded-lg">
   <h1 class="text-2xl mb-4">Device Check-In</h1>
 
@@ -30,10 +30,7 @@
       @endif
     </label>
 
-    <button
-      type="submit"
-      class="p-btn p-prim-col p-white-color mt-6"
-    >
+    <button type="submit" class="p-btn p-prim-col p-white-color mt-6">
       Next
     </button>
   </form>
