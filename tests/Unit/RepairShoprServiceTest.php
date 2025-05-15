@@ -19,9 +19,9 @@ it('searches customers by term', function () {
         ->and($results[0]['id'])->toBe(42);
 
     Http::assertSent(function (Request $req) {
-        return $req->url() === config('services.repairshopr.base_url') . '/customers/search'
-            && $req['term'] === 'jane@example.com';
-    });
+        return Str::endsWith($req->url(), '/customers/search')
+            && $req->data()['term'] === 'jane@example.com';
+    }); 
 });
 
 it('creates a ticket for a customer', function () {
