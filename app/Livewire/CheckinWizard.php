@@ -1,61 +1,78 @@
 <?php
-// app/Http/Livewire/CheckinWizard.php
 
 namespace App\Http\Livewire;
 
 use Livewire\Component;
 use App\Services\RepairShoprService;
+
 class CheckinWizard extends Component
 {
-    public string $method = 'email';
-    public string $email = '';
-    public string $phone = '';
-    public ?int  $customerId = null;
-    public string $step = 'lookup';
+    public $issueType, $description, $assets = [], $selectedWorksheet;
+    public $issueTypes = [], $assetTypes = [], $worksheets = [];
 
-    protected RepairShoprService $rs;
-
-    public function mount(RepairShoprService $repairShopr)
+    public function mount()
     {
-        $this->rs = $repairShopr;
-        $this->method = 'email';
+        $this->issueTypes = [
+            'Advanced/Custom Diagnostics',
+            'Computer Cleanup',
+            'Data Transfer',
+            'Misc. Work and Notes',
+            'New PC Setup',
+            'Onsite',
+            'PC/Mac Diagnostics',
+            'Phone Worksheet',
+            'ThreatDown',
+        ];
+
+        $this->assetTypes = ['Laptop','Desktop','Tablet','Phone','Other'];
+
+        $this->worksheets = $this->issueTypes; // same list in your example
+
+        $this->assets = [
+            ['type'=>'','name'=>'','serial'=>''],
+        ];
+    }
+
+    public function addAsset()
+    {
+        $this->assets[] = ['type'=>'','name'=>'','serial'=>''];
+    }
+
+    public function removeAsset($idx)
+    {
+        unset($this->assets[$idx]);
+        $this->assets = array_values($this->assets);
+    }
+
+    public function submit()
+    {
+        $this->validate([
+            'issueType'         => 'required',
+            'description'       => 'required|string',
+            'assets.*.type'     => 'required',
+            'assets.*.name'     => 'required',
+            'assets.*.serial'   => 'required',
+            'selectedWorksheet' => 'required',
+        ]);
+
+        $payload = [
+            'subject'     => $this->issueType,
+            'description' => $this->description,
+            // custom_fields etc…
+        ];
+
+        $customerId = 42;
+        $svc = app(RepairShoprService::class);
+        $ticket = $svc->createTicket($customerId, $payload);
+
+        session()->flash('message', "✅ Ticket created! ID: {$ticket['ticket_id']}");
+
+        $this->reset(['issueType','description','assets','selectedWorksheet']);
+        $this->mount();
     }
 
     public function render()
     {
         return view('livewire.checkin-wizard');
-    }
-
-    public function lookupCustomer()
-    {
-        $term = $this->email ?: $this->phone;
-        $customer = $this->rs->findCustomerByTerm($term);
-
-        if ($customer) {
-            $this->customerId = $customer['id'];
-            $this->step       = 'confirm';
-        } else {
-            $this->step = 'newClient';
-        }
-    }
-
-    public function createNewClient()
-    {
-        $data = $this->validate([
-            'email' => 'required|email',
-            'phone' => 'required|string',
-            'firstName' => 'required|string',
-            'lastName' => 'required|string',
-        ]);
-    
-        $customer = $this->rs->createCustomer([
-            'first_name' => $data['firstName'],
-            'last_name' => $data['lastName'],
-            'email' => $data['email'],
-            'phone' => $data['phone'],
-        ]);
-
-        $this->customerId = $customer['id'];
-        $this->step       = 'confirm';
     }
 }

@@ -8,21 +8,14 @@ use App\Http\Livewire\CheckinWizard;
 // 1) Redirect “/” → “/checkin”
 Route::redirect('/', '/checkin')->name('home');
 
-// 2) Serve a wrapper Blade that *contains* your Livewire component
-Route::view('/checkin', 'checkin')->name('checkin');
-
-// 3) Staff & other routes…
-Route::middleware('auth')->group(function () {
-    // …
-});
-
+// 2) Show our Livewire wrapper view
 Route::get('/checkin', function () {
-    return view('customers.checkin');
-});
+    return view('checkin');
+})->name('checkin');
 
-// 2. Dashboard & settings (no change)
+// 3) Dashboard & settings (unchanged)
 Route::view('dashboard', 'dashboard')
-     ->middleware(['auth', 'verified'])
+     ->middleware(['auth','verified'])
      ->name('dashboard');
 
 Route::middleware(['auth'])->group(function () {
