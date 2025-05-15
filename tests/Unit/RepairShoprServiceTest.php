@@ -1,59 +1,36 @@
 <?php
+// tests/Unit/RepairShoprServiceTest.php
 
-namespace Tests\Unit;
-
-use Tests\TestCase;
-use Illuminate\Support\Facades\Http;
 use App\Services\RepairShoprService;
+use Illuminate\Support\Facades\Http;
+use Illuminate\Http\Client\Request;
 
-class RepairShoprServiceTest extends TestCase
-{
-    public function test_find_customer_by_term_returns_customer()
-    {
-        // Stub a successful lookup response
-        Http::fake([
-            '*/api/v1/customers?term=john@example.com' => Http::response([
-                'customers' => [
-                    ['id' => 123, 'first_name' => 'John', 'last_name' => 'Doe'],
-                ],
-            ], 200),
-        ]);
+it('searches customers by term', function () {
+    Http::fake([
+        '*' => Http::response([
+            ['id' => 42, 'first_name' => 'Jane']
+        ], 200),
+    ]);
 
-        $service = new RepairShoprService();
-        $customer = $service->findCustomerByTerm('john@example.com');
+    $svc = new RepairShoprService();
+    $results = $svc->findCustomerByTerm('jane@example.com');
 
-        $this->assertNotNull($customer);
-        $this->assertEquals(123, $customer['id']);
-    }
+    expect($results)->toBeArray()
+        ->and($results[0]['id'])->toBe(42);
 
-    public function test_find_customer_by_term_returns_null_when_not_found()
-    {
-        // Stub an empty result
-        Http::fake([
-            '*/api/v1/customers?term=foo@bar.com' => Http::response(['customers' => []], 200),
-        ]);
+    Http::assertSent(function (Request $req) {
+        return $req->url() === config('services.repairshopr.base_url') . '/customers/search'
+            && $req['term'] === 'jane@example.com';
+    });
+});
 
-        $service = new RepairShoprService();
-        $this->assertNull($service->findCustomerByTerm('foo@bar.com'));
-    }
+it('creates a ticket for a customer', function () {
+    Http::fake([
+        '*' => Http::response(['ticket_id' => 99], 201),
+    ]);
 
-    public function test_create_customer_returns_new_customer()
-    {
-        // Stub the POST /customers response
-        Http::fake([
-            '*/api/v1/customers' => Http::response([
-                'customer' => ['id' => 456],
-            ], 201),
-        ]);
+    $svc = new RepairShoprService();
+    $ticket = $svc->createTicket(42, ['subject' => 'Repair']);
 
-        $service = new RepairShoprService();
-        $new = $service->createCustomer([
-            'first_name' => 'Jane',
-            'last_name'  => 'Smith',
-            'email'      => 'jane@example.com',
-            'phone'      => '555-1234',
-        ]);
-
-        $this->assertEquals(456, $new['id']);
-    }
-}
+    expect($ticket['ticket_id'])->toBe(99);
+});
