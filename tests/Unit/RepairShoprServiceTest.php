@@ -3,6 +3,7 @@
 
 use App\Services\RepairShoprService;
 use Illuminate\Support\Facades\Http;
+use Illuminate\Support\Str;
 use Illuminate\Http\Client\Request;
 
 it('searches customers by term', function () {
@@ -21,7 +22,7 @@ it('searches customers by term', function () {
     Http::assertSent(function (Request $req) {
         return Str::endsWith($req->url(), '/customers/search')
             && $req->data()['term'] === 'jane@example.com';
-    }); 
+    });
 });
 
 it('creates a ticket for a customer', function () {
