@@ -37,7 +37,7 @@ return [
 
     'repairshopr' => [
         'url' => env('https://billingstechguys.repairshopr.com/accounts'),
-        'key' => env('REPAIRSHOPR_KEY_GOES_HERE'), // dylan...
+        'key' => env('T0f87b83eddbb713dc-0300bd58c50977a549ab1908feae0549'),
 
     'openai' => [
         'key' => env('OPENAI_API_KEY'),
