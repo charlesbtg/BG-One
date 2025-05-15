@@ -16,6 +16,10 @@ Route::middleware('auth')->group(function () {
     // …
 });
 
+Route::get('/checkin', function () {
+    return view('customers.checkin');
+});
+
 // 2. Dashboard & settings (no change)
 Route::view('dashboard', 'dashboard')
      ->middleware(['auth', 'verified'])

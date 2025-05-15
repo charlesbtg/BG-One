@@ -36,7 +36,12 @@ return [
     ],
 
     'repairshopr' => [
-        'url' => env('REPAIRSHOPR_URL'),
-        'key' => env('REPAIRSHOPR_KEY_GOES_HERE'),
+        'url' => env('https://billingstechguys.repairshopr.com/accounts'),
+        'key' => env('REPAIRSHOPR_KEY_GOES_HERE'), // dylan...
+
+    'openai' => [
+        'key' => env('OPENAI_API_KEY'),
+        'model' => env('OPENAI_MODEL', 'gpt-3.5-turbo'), // $20/month for more advanced models???
     ],
+  ],
 ];
