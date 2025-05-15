@@ -1,10 +1,13 @@
 <?php
 // tests/Unit/RepairShoprServiceTest.php
 
+use Tests\TestCase;
 use App\Services\RepairShoprService;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Str;
 use Illuminate\Http\Client\Request;
+
+uses(TestCase::class);
 
 it('searches customers by term', function () {
     Http::fake([
@@ -16,7 +19,8 @@ it('searches customers by term', function () {
     $svc = new RepairShoprService();
     $results = $svc->findCustomerByTerm('jane@example.com');
 
-    expect($results)->toBeArray()
+    expect($results)
+        ->toBeArray()
         ->and($results[0]['id'])->toBe(42);
 
     Http::assertSent(function (Request $req) {
