@@ -6,8 +6,6 @@ use Livewire\Livewire;
 use App\Livewire\NewCustomer;
 use App\Services\RepairShoprService;
 
-uses(TestCase::class);
-
 it('creates a new customer when none exists', function () {
     // Stub the service so findOrCreateCustomer() always returns 123
     $this->instance(RepairShoprService::class, new class {

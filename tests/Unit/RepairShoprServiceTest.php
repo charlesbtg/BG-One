@@ -7,8 +7,6 @@ use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Str;
 use Illuminate\Http\Client\Request;
 
-uses(TestCase::class);
-
 it('searches customers by term', function () {
     Http::fake([
         '*' => Http::response([
