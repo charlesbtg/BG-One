@@ -24,18 +24,13 @@ class CheckinWizard extends Component
             'ThreatDown/Malwarebytes',
         ];
 
-        $this->assetTypes = ['Laptop','Desktop','Tablet','Phone','Other'];
+        $this->assetTypes = ['Computer','Phone','Other'];
 
         $this->worksheets = $this->issueTypes; // same list in your example
 
         $this->assets = [
             ['type'=>'','name'=>'','serial'=>''],
         ];
-    }
-
-    public function render()
-    {
-        return view('livewire.checkin-wizard');
     }
 
     public function addAsset()
@@ -74,5 +69,16 @@ class CheckinWizard extends Component
 
         $this->reset(['issueType','description','assets','selectedWorksheet']);
         $this->mount();
+    }
+
+    public function render()
+    {
+        return view('livewire.checkin-wizard', [
+            'issueTypes' => $this->issueTypes,
+            'assetTypes' => $this->assetTypes,
+            'worksheets' => $this->worksheets,
+            // If Blade ever loops $assets, pass it too:
+            'assets'     => $this->assets,
+        ]);
     }
 }
