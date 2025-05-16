@@ -21,7 +21,7 @@ class CheckinWizard extends Component
             'Onsite',
             'PC/Mac Diagnostics',
             'Phone Worksheet',
-            'ThreatDown',
+            'ThreatDown/Malwarebytes',
         ];
 
         $this->assetTypes = ['Laptop','Desktop','Tablet','Phone','Other'];
@@ -31,6 +31,11 @@ class CheckinWizard extends Component
         $this->assets = [
             ['type'=>'','name'=>'','serial'=>''],
         ];
+    }
+
+    public function render()
+    {
+        return view('livewire.checkin-wizard');
     }
 
     public function addAsset()
@@ -69,10 +74,5 @@ class CheckinWizard extends Component
 
         $this->reset(['issueType','description','assets','selectedWorksheet']);
         $this->mount();
-    }
-
-    public function render()
-    {
-        return view('livewire.checkin-wizard');
     }
 }
