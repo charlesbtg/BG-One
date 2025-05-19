@@ -8,7 +8,7 @@ class CheckinController extends Controller
 {
     public function index()
     {
-        return view('checkin.index');
+        return view('checkin.index', compact('checkins'));
     }
     public function start()
     {
