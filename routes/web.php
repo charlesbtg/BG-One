@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use Livewire\Volt\Volt;
 use App\Http\Controllers\CheckinController;
 use App\Http\Livewire\CheckinWizard;
+use App\Http\Controllers\Auth\LogoutController;
 
 Route::get('/', function () {
     return view('welcome');
@@ -15,7 +16,10 @@ Route::get('/checkin', [CheckinController::class, 'index'])
 
 Route::get('/checkin/wizard', CheckinWizard::class)
      ->middleware(['auth', 'verified'])
-     ->name('checkin.wizard');     
+     ->name('checkin.wizard');
+     
+Route::post('logout', LogoutController::class)
+     ->name('logout');
 
 // 1) Redirect “/” → “/checkin”
 //Route::redirect('/', '/checkin')->name('home');
